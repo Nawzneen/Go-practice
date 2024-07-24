@@ -1,0 +1,25 @@
+.env
+node_modules
+
+*.o
+*.a
+*.so
+
+# folders 
+_obj
+_test
+_test_vendor/
+tmp
+
+# Compiled binary files 
+*.exe
+*.out
+
+# macOS specific Files 
+.DS_Store
+
+Go specific files 
+Complied binary for packages and commands
+/bin/
+# Output of the go coverate tool, specifically when used with liteIDE
+*.out
