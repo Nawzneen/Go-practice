@@ -109,8 +109,13 @@ func updateTodo(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "could not find the todo"})
 	}
+	var todo Todo
 	filter := bson.M{"_id": objectID}
-	update := bson.M{"$set": bson.M{"completed": true}}
+	err = collection.FindOne(context.Background(), filter).Decode(&todo)
+	if err != nil {
+		return c.Status(404).JSON(fiber.Map{"error": "todo not found"})
+	}
+	update := bson.M{"$set": bson.M{"completed": !todo.Completed}}
 	_, err = collection.UpdateOne(context.Background(), filter, update)
 	if err != nil {
 		return err
